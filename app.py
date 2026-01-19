@@ -4,7 +4,6 @@ import joblib
 
 model = joblib.load("models/game_sales_model.pkl")
 columns = joblib.load("models/model_columns.pkl")
-st.write("Sample model columns:", columns[:30])
 
 st.title("🎮 Video Game Sales Prediction System")
 
@@ -46,12 +45,6 @@ for col in [platform_col, genre_col, publisher_col]:
     if col in input_df.columns:
         input_df[col] = 1
 
-# DEBUG (temporary — keep for now)
-st.write("Active features count:", int(input_df.sum(axis=1)))
-st.write(
-    "Non-zero features:",
-    input_df.loc[:, input_df.iloc[0] != 0].columns.tolist()
-)
 
 if st.button("Predict Global Sales"):
     prediction = model.predict(input_df)[0]

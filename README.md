@@ -15,10 +15,15 @@ Predict the global sales of a video game based on platform, genre, publisher, re
 ## Project Structure
 video-game-sales-ml/
 │
+
 ├── data/
+
 ├── notebooks/
+
 ├── app.py
+
 ├── model.pkl
+
 └── README.md
 
 

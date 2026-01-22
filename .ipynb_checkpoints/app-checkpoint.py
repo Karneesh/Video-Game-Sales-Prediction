@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import numpy as np
 
 model = joblib.load("models/game_sales_model.pkl")
 columns = joblib.load("models/model_columns.pkl")
@@ -47,5 +48,18 @@ for col in [platform_col, genre_col, publisher_col]:
 
 
 if st.button("Predict Global Sales"):
-    prediction = model.predict(input_df)[0]
-    st.success(f"Predicted Global Sales: {prediction:.2f} million units")
+   pred_log = model.predict(input_df)[0]
+   prediction = np.expm1(pred_log)
+   
+   st.success(f"Predicted Global Sales: {prediction:.2f} million units")
+   if prediction < 0.5:
+       label = "❌ Flop"
+   elif prediction < 2:
+       label = "⚠️ Average"
+   elif prediction < 5:
+       label = "✅ Hit"
+   else:
+       label = "🔥 Blockbuster"
+   st.info(f"Market Verdict: {label}")
+
+
